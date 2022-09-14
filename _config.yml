@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Ainavo
 subtitle: ''
-description: ''
+# description: ''
 keywords:
-author: John Doe
-language: en
+author: 
+# language: en
 timezone: ''
 
 # URL
@@ -30,6 +30,7 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
 
+
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
@@ -44,17 +45,17 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace: ''
-  wrap: true
-  hljs: false
+    enable: false
+    line_number: true
+    auto_detect: false
+    tab_replace: ""
+    wrap: true
+    hljs: false
 prismjs:
-  enable: false
-  preprocess: true
-  line_number: true
-  tab_replace: ''
+    enable: false
+    preprocess: true
+    line_number: true
+    tab_replace: ""
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -97,11 +98,75 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
-
+theme: particlex
+# theme: diaspora
+# post_asset_folder: true
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
   repository: https://github.com/Ainavo/Ainavo.github.io
   branch: main
+
+language: # Language
+head_img: # Avatar URL
+head_block_enable: true
+home_background: ""
+vf_fonts_enable: false
+
+# mathjax:
+#   every_page: true
+# mathjax:
+#   tags: # or 'ams' or 'all'
+#   single_dollars: true # enable single dollar signs as in-line math delimiters
+#   cjk_width: 0.9 # relative CJK char width
+#   normal_width: 0.6 # relative normal (monospace) width
+#   append_css: true # add CSS to pages rendered by MathJax
+#   every_page: false # if true, every page will be rendered by MathJax regardless the `mathjax` setting in Front-matter
+#   packages: # extra packages to load
+#   extension_options: {}
+#     # you can put your extension options here
+#     # see http://docs.mathjax.org/en/latest/options/input/tex.html#tex-extension-options for more detail
+# math:
+#   katex:
+#     css: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css'
+#     options:
+#       throwOnError: false
+#   mathjax:
+#     css: 'https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css'
+#     options:
+#       conversion:
+#         display: false
+#       tex:
+#       svg:
+markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    langPrefix: language-
+    linkify: true
+    typographer: true
+    quotes: “”‘’
+  plugins:
+    markdown-it-anchor:
+      level: 1
+      permalink: false
+      slugify: function (s) {return encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-"));} # String starting with 'function' will be parsed as a function that satisfies the plugin.
+      tabIndex: -1
+      uniqueSlugStartIndex: 1
+    markdown-it-attrs:
+      leftDelimiter: "{"
+      rightDelimiter: "}"
+      allowedAttributes: []
+    markdown-it-checkbox:
+      divWrap: false
+      divClass: checkbox
+      idPrefix: checkbox
+    markdown-it-texmath:
+      katexCssSrc: //cdn.jsdelivr.net/npm/katex/dist/katex.min.css
+      texmathCssSrc: //cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css
+      texmathDelimiters: dollars
+      throwOnError: false
+      errorColor: "#cc0000"
+      macros: { "\\RR": "\\mathbb{R}" }
