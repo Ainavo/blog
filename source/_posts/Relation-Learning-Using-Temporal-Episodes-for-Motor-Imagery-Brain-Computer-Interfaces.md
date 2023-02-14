@@ -47,10 +47,14 @@ A、问题介绍：_N-ways K-shot_
 
 B、整体框架：如图 1  
 ![图1、整体框架](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\整体框图.png)
+
+<center>图 1.网络框架</center>
 (这里是自己的一些话术)对于一个训练 episode 首先从所有的源被试抽样出支持集和查询集，然后在保持时序的情况下，输入 $f_\theta$ 嵌入网络，生成特征向量；然后通过时序网络进一步提取时序特征，在通过 $Sum$ 函数求每类特征向量；同样的查询集通过 $f_\theta$ 嵌入网络生成特征向量并进行复制，然后将类特征向量和查询特征向量相连接，输入 $h_\gamma$ 关系网络得到相关分数，分数最高的类即为标签。同样的，对于测试 episode，首先从目标被试中抽样，其余步骤都与训练 episode 相同。
 
 C、网络结构：如图 2  
 ![图2、各部分网络结构](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\各部分网络结构.png)
+
+<center>图 2.各部分网络框架</center>
 
 - $f_\theta$:EEGNet 是 MI 分类较为常用的网络。对于嵌入网络（$f_\theta$）,本文选择了 EEGNet 同款架构，但是舍弃了全连接层（负责监督分类）。
 - $g_\phi$:时序网络由一个简单的 1D CNN 构成，如图 2 所示：其内核大小为 $k_s$ 沿着样本大小的维度进行卷积。步长为 1，在第一个样本前补充 $(k_s-1, 0)$ 的零值。
@@ -69,15 +73,21 @@ E、TERL 的优势
 A、Databases（略）  
 ![图3.数据划分](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\数据划分.png)
 
+<center>图 3.数据划分</center>
+
 数据划分大致如图 3 所示，选择一个作为目标被试，其余则为源域被试。
 
 B、离线策略：如图 4
 ![图4.离线抽样策略](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\离线抽样.png)
 
+<center>图 4.离线抽样策略</center>
+
 teseting set：支持集和查询集均来源于同一被试，在生成支持集的同时样本以时间序列排列。
 
 C、在线策略：如图 5
 ![图5.在线抽样策略](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\在线抽样策略.png)
+
+<center>图 5.在线抽样策略</center>
 
 testing set：相比于离线采样的策略，在线采样首先选取待测数据前一部分作为最小子集，剩余部分作为查询集，而支持集通过最小子集按照时序顺序生成。
 
@@ -106,12 +116,18 @@ E、Training and optimization
 A、离线评估结果:如图 6  
 ![图6.离线实验结果](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\离线实验结果.png)
 
+<center>图 6.离线实验结果</center>
+
 在四个数据集上都表现了仅以支持集训练的模型在所有方法中精度最低，这与预期相吻合，其他结果（除 SO、Combine）表示都需要更多的目标被试数据参与训练。从理论上说，TL 和 DA 的方法搜可以以最小化域间距离，从而提高模型在目标域上的拟合。但是与作者预期相反的这两种方法（即 FT、DDAN、DRDA）在四个数据集上的品骏分类精度没有 Combine 高，同时，只有少量来自于目标被试的样本时，这些方法无法表现出他们原文中展现出的优异性。  
 B、在线评估结果：如图 7  
 ![图7.在线实验结果](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\在线实验结果.png)
 
+<center>图 7.在线实验结果</center>
+
 本文所提方法（model A 和 model B）在四个评估数据集上表现最好，与其他模型相比，模型 A 的品骏分类准确分别提高了 2.8%、1.2%、4.0%和 1.6%。本文的两种抽样方案在准确率上没有显著性差异（即所有 p>0.05），模型 A 在四个数据集上都小优模型 B。这与作者的预期不符，即在支持集之后，再采样查询集更适合测试界面，理应好于模型 A。分析原因：B 的抽样技术大大限制源样本的 S 和 Q 的组合，降低了泛化性。  
 ![图 8.校准时间](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\校准时间.png)
+
+<center>图 8.校准时间</center>
 
 在图 8 中给出模型再训练的时间，除了 SO 之外的模型均需要二次训练，其中 DDAN 和 DRDA 要求原数据和目标数据像组合，以便模型拟合目标被试，因此需要更长的时间。相反，小样本学习不需要对目标数据二次训练，即可以做到即插即用，极大的增加了现实中 MI-BCI 的可用性。
 
@@ -121,6 +137,8 @@ C、K-way setting
 因此在三个数据集上，分别尝试了 $K=\{0，5，10，15，20\}$ ，其中 K=0，对应零样本实验，即从源域随机选取 10 个样本作为支持集。  
 ![图9.不同K值的影响](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\不同K值的影响.png)
 
+<center>图 9.不同 K 值的影响</center>
+
 如图 9 所示，当 K 取值较小的情况下，TERL 表现好于 FT 和 DRDA。当 K=10 时，TERL 模型效果最好，但随着样本数量的增加，TERL 的表现在部分数据集上不如其余两个模型。
 
 D、Temporal kernel size
@@ -128,8 +146,12 @@ D、Temporal kernel size
 1D 卷积的内核大小通过不同的参数，来验证参数的敏感性。通过在 $\{0, 5, 10, 15, 20\}$ 的范围内改变内核的大小，以表示不同的时间长度。当 $k_s=0$ 时，意味着不用时序网络。图 10 展示了不同卷积核下模型的性能对比。当不使用时序网络时，准确率最低，当内核在 5~20 之间变化时，模型性能相对稳定，表明了该模型对内核大小变化不敏感，最短的内核即可获得最高的精度。  
 ![图10.时序网络不同卷积核的影响](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\时序网络不同卷积核的影响.png)
 
+<center>图 10.时序网络不同卷积核的影响</center>
+
 E、Temporal kernel weights  
 ![图11.1D CNN 网络热力图](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\时序网络权重.png)
+
+<center>图 11.1D CNN 网络热力图</center>
 如图 11 所示，是时序网络在 S1~S9 被试，在时序排序情况下和非时序排序情况下的热力图，可以看到时序情况下的当前样本权重是最大的，同时越靠近底部的权重越大，说明了 MI 模型中时序编码的重要性。
 
 ## CONCLUSION
