@@ -46,11 +46,11 @@ A、问题介绍：_N-ways K-shot_
 - episode：每次对数据集进行抽样，选择几个类，并选择每个类对应的**支持集**和**查询集**，然后进行训练，计算损失，更新参数，这个过程就被成为 episode-training。下一个 episode 可以再选择其他的类进行训练。一个 epoch 包含多个 episode。
 
 B、整体框架：如图 1  
-![图1、整体框架](imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\整体框图.png)
+![图1、整体框架](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\整体框图.png)
 (这里是自己的一些话术)对于一个训练 episode 首先从所有的源被试抽样出支持集和查询集，然后在保持时序的情况下，输入 $f_\theta$ 嵌入网络，生成特征向量；然后通过时序网络进一步提取时序特征，在通过 $Sum$ 函数求每类特征向量；同样的查询集通过 $f_\theta$ 嵌入网络生成特征向量并进行复制，然后将类特征向量和查询特征向量相连接，输入 $h_\gamma$ 关系网络得到相关分数，分数最高的类即为标签。同样的，对于测试 episode，首先从目标被试中抽样，其余步骤都与训练 episode 相同。
 
 C、网络结构：如图 2  
-![图2、各部分网络结构](imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\各部分网络结构.png)
+![图2、各部分网络结构](\imgs\Relation-Learning-Using-Temporal-Episodes-for-Motor-Imagery-Brain-Computer-Interfaces\各部分网络结构.png)
 
 - $f_\theta$:EEGNet 是 MI 分类较为常用的网络。对于嵌入网络（$f_\theta$）,本文选择了 EEGNet 同款架构，但是舍弃了全连接层（负责监督分类）。
 - $g_\phi$:时序网络由一个简单的 1D CNN 构成，如图 2 所示：其内核大小为 $k_s$ 沿着样本大小的维度进行卷积。步长为 1，在第一个样本前补充 $(k_s-1, 0)$ 的零值。
