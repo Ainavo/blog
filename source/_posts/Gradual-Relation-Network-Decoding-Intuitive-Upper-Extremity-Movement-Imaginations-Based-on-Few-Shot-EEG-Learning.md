@@ -1,12 +1,13 @@
 ---
-title: >-
-  Gradual Relation Network Decoding Intuitive Upper Extremity Movement
+title: Gradual Relation Network Decoding Intuitive Upper Extremity Movement
   Imaginations Based on Few-Shot EEG Learning
 date: 2022-09-17 10:06:59
 categories: "MI"
 tags:
   - eeg
   - few-shot
+
+published: false
 ---
 
 <!--more-->
