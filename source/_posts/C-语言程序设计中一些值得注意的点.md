@@ -38,3 +38,13 @@ _Notes_:参考课程[<<浙大瓮恺 C 语言程序设计>>](https://space.bilibi
   - 如果有固定次数，用 for 循环： for(; ; ;)
   - 如果必须执行一次：用 do_while 循环
   - 其他情况用 while 循环
+- 跳出循环：
+  - break：跳出循环
+  - continue：跳出本轮循环，继续下一轮
+  - goto：
+    ```C
+        ....
+        goto out:
+    out:
+        return 0;
+    ```
