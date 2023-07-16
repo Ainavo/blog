@@ -48,3 +48,25 @@ _Notes_:参考课程[<<浙大瓮恺 C 语言程序设计>>](https://space.bilibi
     out:
         return 0;
     ```
+- 辗转相除法：
+
+  ```C
+    // 如果b等于0，计算结束，a就是最大公约数；
+    // 否则，计算a除以b的余数，让a等于b，b等于那个余数；
+    // 构建循环体。
+    # include<studio.h>
+
+    int main(){
+        int a, b;
+        int temp;
+        scanf("%d %d", &a, &b);
+        while(b != 0){
+            temp = a % b;
+            a = b;
+            b = temp;
+            printf("a=%d, b=%d, temp=%d\n", a, b, temp);
+        };
+        printf("a与b的最大公约数为 %d", a);
+        return 0;
+    }
+  ```
