@@ -881,6 +881,7 @@ _Notes_:参考课程[<<浙大瓮恺 C 语言程序设计>>](https://space.bilibi
   - 返回成功读写的字节数
 
 - 按位运算
+
   - &：按位取与
     - 两个数都是 1，则为 1
     - 应用：
@@ -914,3 +915,295 @@ _Notes_:参考课程[<<浙大瓮恺 C 语言程序设计>>](https://space.bilibi
     - 对于 signed 的类型，左边填入原来最高位(保持符号不变)
       - x >> 1 等价于 x /=2;
       - x >> n 等价于 x /= $2^n$
+
+- 位段：把一个 int 的若干位组合成一个结构
+
+  ```C
+    struct {
+        unsigned int leading : 3;
+        unsigned int FLAG1 : 1;
+        unsigned int FLAG2 : 1;
+        int trailing : 11;
+    };
+  ```
+
+  - 可以直接用位段的成员名称来访问
+    - 比位、与、或方便
+    - 编译器会安排其中的位的排列，不具有可移植性
+    - 当所需的位超过一个 int 时会采用多个 int
+
+- 可变数组
+
+  - Array array_create(int init_size); // 创建
+  - void array_free(Array \*a); // 回收
+  - int array_size(const Array \*a); // 数组大小
+  - int* array_at(Array *a, int index); // 访问某个单元
+  - void array_inflate(Array \*a, int more_size); // 增长
+
+  ```C
+    typedef struct{
+        int *array;
+        int size;
+    } Array;
+
+    const BLOCK_SIZE = 20;
+
+    Array array_create(init_size)
+    {
+        Array a;
+        a.size = init_size;
+        a.array = (int*)malloc(sizeof(int)*a.size);
+        return a;
+    }
+
+    void array_size(Array *a)
+    {
+        free(a->array);
+        a->array = NULL;
+        a->size = 0;
+    }
+
+    // 封装（保护 a->size）
+    int array_size(const Array *a)
+    {
+        return a->size;
+    }
+
+    int* array_at(Array *a, int index)
+    {   if (index >= a->size){
+        array_inflate(a, (index/BLOCK_SIZE+1)*BLOCK_SIZE - a->size);
+        }
+        return &(a->array[index]);
+    }
+
+    void array_inflate(Array *a, int more_size)
+    {
+        int *p = (int*)malloc(sizeof(int)(a->size+more_size));
+        int i;
+        for (i=0; i<a->size; i++)
+        {
+            p[i] = a->array[i];
+        }
+        free(a->array);
+        a->array = p;
+        a->size += more_size;
+    }
+
+    int main (int argc, char const *agrv[])
+    {
+        Array a = array_create(100);
+        printf("%d\n", array_size(&a));
+        *array_at(&a, 0) = 10;  // array_at 返回的是地址，因此直接*取地址中的内容
+        printf("%d\n", *array_at(&a, 0));
+        int number;
+        int cnt;
+        while (number != -1){
+            scanf("%d", &number);
+            if (number != -1)
+                *array_at(&a, cnt++) = number;
+        }
+        array_free(&a);
+
+        return 0;
+    }
+  ```
+
+- 链表：数据+指针
+
+  ```C
+    typedef struct _node {
+            int value;
+            struct _node *next;
+        } Node;
+
+    int main(int argc, char const *argv[])
+    {
+        Node *head = NULL;
+        int number;
+        do {
+            scanf("%d", &number);
+            if (number != -1){
+                // add to linked-list
+                Node *p = (Node*)malloc(sizeof(Node));
+                p->value = number;
+                p->next = NULL;
+                // find the last
+                Node *last = head;
+                if (last){
+                    while(last->next){
+                        last = last->next;
+                    }
+                    // attach
+                    last->next = p;
+                } else{ head = p ;}  // 初始 head = NULL，当有了第一个 p，应该指向 p
+            }
+        }
+
+    }
+  ```
+
+  - 链表函数--(以下摘抄自[翁恺 程序设计进阶 C 语言笔记-链表(Linked List)](https://blog.csdn.net/qq_40570751/article/details/113513975?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-113513975-blog-111396626.235%5Ev38%5Epc_relevant_anti_vip&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-113513975-blog-111396626.235%5Ev38%5Epc_relevant_anti_vip&utm_relevant_index=3))：
+
+  ```C
+    //方案1，不行
+    void add(Node* head,int number){
+        ...
+        else{
+            head = p;       //形参在函数结束的时候就会释放，如果没有直接将内存里的数改掉，那么对指针的操作也带不到函数外面去
+            //在这里head是形参指针，出了函数以后head就被释放了。
+        }
+    }
+
+    //证明
+    void test(int* head);
+
+    int a = 1;
+    int b = 2;
+    int* p = &a;
+    int* t = &b;
+    int main()
+    {
+        test(p);
+        //printf("%d\n",*p);
+        printf("函数外：%d\n",*p);
+        return 0;
+    }
+
+    void test(int* p){
+        p = t;
+        printf("函数内：%d\n",*p);
+    }
+    /*输出为
+    函数内：2
+    函数外：1*/
+
+    //方案2，将指针的值返回
+    Node* add(Node* head,int number){
+        ...
+        return head;
+    }
+    //调用时
+    head = add(head,number);
+
+    //方案3，穿入指针的指针
+    //调用
+    add(&head,number);   //对head取地址，就是head这个指针的指针传进去了
+
+    add(Node**  phead,int number){     //两个*，表示指针的指针
+        ...    //head等价于*phead，将head全改为*phead
+        //return head;   不需要返回了
+    }
+
+
+
+    // 方案四
+    #include <stdio.h>
+    #include <stdbool.h>
+    #include <node.h>
+    #include <stdlib.h>
+
+    typedef struct _list{
+        Node* head;
+        Node* tail;   //可以拓展功能，增加tail总是指向链表的末尾，然后不用遍历了，直接将tail指向新指针即可
+    } List;
+
+    int main()
+    {
+    //实现读入一个数字就存起来，知道读到-1为止
+        int number;
+        List list;
+        list.head = NULL;    //定义链表的头部，这是一个指向Node类型结构体的指针
+        do {
+            //添加一个新的链表（数据块）,加在程序的最后面
+            scanf("%d",&number);
+            if (number != -1){
+                add(&list,number);     //传入指向head的指针
+                Node *p = (Node*)malloc(sizeof(Node));    //指针p指向新创建的链表，用malloc给他开辟内存
+                p->next = NULL;   //新加入的链表放到最后面，所以是空指针
+                p->value = number;
+                //找到最后的那个链表
+                Node *last = head;  //设用last指向最后那个链表，先设last为head
+                //last和head一样，是指向头链表的指针 *head就是头链表那个结构体 last->next 等价于 (*head).next
+                //判断last不为空，如果整个链表为空,此时head=NULL，last->就是NULL的next元素，这样是非法的，所以要判断
+                if (last){
+                    /*遍历，不能用if，这里是只要last指向的结构体的指针不为空，
+                    即指向的链表的下一个链表不为空，则不停止循环，if只判断一次*/
+                    while (last->next){
+                                    last = last->next;   //指向下一个链表
+                                }
+                    last->next = p;    /*last->next等于NULL了，说明last已经指向原本的最后一个链表了，这里让last的next为我们新添加的链表
+                    就是将老链表的最后一个中的next指针指向我们添加的新链表*/
+                } else {
+                    head = p;   //空链表，直接将head指向我们新创建的链表，此时新链表是头链表，也是唯一的链表。
+                }
+
+            }
+
+        }while( number != -1);
+
+        return 0;
+    }
+
+    void add(List* pList, int number)
+    {
+        // add to linked-list
+        Node *p = (Node*)malloc(sizeof(Node));
+        p->value = number;
+        p->next = NULL;
+        //find the last
+        Node *last = pList->head;
+        if (last) {
+            while(last->next){
+                last = last->next;
+                }
+            // attach
+            last->next = p;
+        } else {
+            pList->head = p;  // 跟两数交换的原理一样，对指针指向的内容进行赋值(只不过赋的值是地址)
+        }
+    }
+  ```
+
+  - 链表的搜索：
+
+    ```C
+      void print(List *pList){
+          Node *p;
+          for(p=pList->head; p; p = p->next){
+              printf("%d\t", p->value);
+          }
+          printf("\n");
+      }
+
+    ```
+
+  - 链表的删除：
+
+  ```C
+    Node *q;
+    for (q=NULL, p=head; p; q=p,p=p->next){
+        if(p->value == number){
+            if(q){                     // p-> 中的 p 必须保证是非 NULL
+                q->next = p->next;
+            } else{
+                list.head -> p->next;
+            }
+            free(p);
+            break;
+        }
+    }
+  ```
+
+  - 链表的清除：
+
+  ```C
+    for (p=head; p; p=q){
+        q = p->next;
+        free(p);
+    }
+  ```
+
+  参考资料：
+
+- [C 语言程序设计--翁恺](https://www.bilibili.com/video/BV1XZ4y1S7e1/?p=1&vd_source=3a9f66a8e4f96fbd39b999e86b2e0cf4)
+- [翁恺 程序设计进阶 C 语言笔记-链表(Linked List)](https://blog.csdn.net/qq_40570751/article/details/113513975?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-113513975-blog-111396626.235%5Ev38%5Epc_relevant_anti_vip&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-113513975-blog-111396626.235%5Ev38%5Epc_relevant_anti_vip&utm_relevant_index=3) 强推!!总结的很好
