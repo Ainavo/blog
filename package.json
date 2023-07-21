@@ -27,7 +27,9 @@
     "hexo-server": "^3.0.0",
     "lodash": "^4.17.21",
     "lodash.get": "^4.4.2",
-    "markmap-lib": "^0.15.2"
+    "markmap-autoloader": "^0.15.2",
+    "markmap-lib": "^0.15.2",
+    "markmap-view": "^0.15.0"
   },
   "devDependencies": {
     "hexo-markmap": "^1.2.1"
