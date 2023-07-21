@@ -24,7 +24,10 @@
     "hexo-renderer-marked": "^5.0.0",
     "hexo-renderer-pandoc": "^0.3.1",
     "hexo-renderer-stylus": "^2.1.0",
-    "hexo-server": "^3.0.0"
+    "hexo-server": "^3.0.0",
+    "lodash": "^4.17.21",
+    "lodash.get": "^4.4.2",
+    "markmap-lib": "^0.15.2"
   },
   "devDependencies": {
     "hexo-markmap": "^1.2.1"
