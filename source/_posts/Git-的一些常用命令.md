@@ -6,7 +6,7 @@ tags:
   - github
 ---
 
-![Git 常用命令速查表](/imgs/Git%20相关操作/Git%20常用命令速查表.png)
+![](/imgs/Git%20相关操作/Git%20常用命令速查表.png)
 
 <!--more-->
 
@@ -16,7 +16,7 @@ Git 是一个分布式版本控制系统，用于跟踪文件的变化并协调�
 
 ## Git 的安装
 
-- Git 支持 Linux/Unix、macOS、Windows 平台使用，安装包地址：http://git-scm.com/downloads
+- Git 支持 Linux/Unix、macOS、Windows 平台使用，安装包地址：[git 下载与安装](http://git-scm.com/downloads)
 - Git 安装之后，在终端输入 git version 或 git --version 查看版本信息（顺便确保安装成功）。
 
 ## Git 的配置
@@ -175,7 +175,7 @@ Git 是一个分布式版本控制系统，用于跟踪文件的变化并协调�
 - 某些冲突太多，不能直接解决冲突(直接重组)
 
 ```bash
-  git   # 假设目前处在 miaomiao 分支
+  # 假设目前处在 miaomiao 分支
   git checkout master  # 以master为例，切入主分支
   git pull # 拉取最新的 develop 代码
   git checkout miaomiao # 切回 miaomiao 分支
