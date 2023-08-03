@@ -273,7 +273,7 @@ _Notes_:参考课程[<<浙大瓮恺 C 语言程序设计>>](https://space.bilibi
 
   ```C
       void swap(double a, double b); // 与函数名称相同
-      void swap(void)  // 无参数
+      void swap(void);  // 无参数
   ```
 
 - 数组的定义
