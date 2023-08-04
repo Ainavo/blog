@@ -175,3 +175,10 @@ vf_fonts_enable: false
 #   cdn: https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 mathjax:
   every_page: true
+
+hexo_markmap:
+  userCDN:
+    d3_js: https://fastly.jsdelivr.net/npm/d3@6
+    markmap_view_js: https://fastly.jsdelivr.net/npm/markmap-view@0.15.0
+    katex_css: https://fastly.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css
+    prism_css: https://fastly.jsdelivr.net/npm/prismjs@1.25.0/themes/prism.css

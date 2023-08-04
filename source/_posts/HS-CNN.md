@@ -7,7 +7,7 @@ tags:
   - Top-accuracy
 ---
 
-<HS-CNN：用于脑电图运动图像分类的具有混合卷积尺度的 CNN>
+HS-CNN：用于脑电图运动图像分类的具有混合卷积尺度的 CNN
 
 <!--more-->
 
