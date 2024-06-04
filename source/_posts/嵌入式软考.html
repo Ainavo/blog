@@ -1,0 +1,624 @@
+<hr>
+<p>title: 嵌入式软考<br>
+date: 2024-03-27 16:05:55<br>
+tags:</p>
+<ul>
+<li>嵌入式</li>
+<li>考试</li>
+</ul>
+<hr>
+<p>嵌入式系统设计师考试大纲</p>
+<link rel="stylesheet" type="text/css" href="auto-number-title.css" />
+<p><em>Notes</em>:<br>
+（I）、（II）和（III）表示掌握或熟悉的程度：</p>
+<ul>
+<li>（I）是指对所列知识要理解其内容及含义（理解）。</li>
+<li>（II）指在有关问题中能直接使用（一般应用）。</li>
+<li>（III）是指对所列知识要理解其确切含义及与其他知识的联系，能够进行叙述和解释，并能在实际问题的分析、综合、推理和判断等过程中运用（综合应用）。</li>
+</ul>
+<h1 id="考试科目-1嵌入式系统基础知识">考试科目 1：嵌入式系统基础知识</h1>
+<h2 id="计算机系统的基础知识">计算机系统的基础知识</h2>
+<h3 id="数制及其转换">数制及其转换</h3>
+<h4 id="二进制八进制十进制和十六进制等常用数制及其相互转换ii">二进制、八进制、十进制和十六进制等常用数制及其相互转换（II）</h4>
+<p>答：<br>
+2&lt;--&gt;8：3 位二进制对应 1 位八进制数，不足时补 0<br>
+2&lt;--&gt;16：4 位二进制对应 1 位十六进制数<br>
+2&lt;--&gt;10：n 位二进制数转十进制对应<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{n-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>累加，十进制转二进制使用短除法<br>
+8、16&lt;--&gt;10：先转二进制再转八、十六进制</p>
+<h3 id="数据的表示">数据的表示</h3>
+<h4 id="数值的原码反码补码移码表示定点数和浮点数精度和溢出ii">数值的原码、反码、补码、移码表示，定点数和浮点数，精度和溢出（II）</h4>
+<p>答：<br>
+原码：第一位为符号位，8 位二进制取值范围为：[1111 1111, 0111 1111]。表示范围[-127, +127]<br>
+反码：正数的反码是其本身；负数的反码在源码的基础上，符号位不变，其余位取反。表示范围[-127, +127]<br>
+补码：正数的补码是其本身；负数的补码在反码的基础上+1。表示范围[-128， +127]<br>
+移码：将符号位取反的补码</p>
+<p>浮点数：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mi>R</mi><mi>e</mi></msup><mo>∗</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">N = R^e*M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>（M 为尾数，e 为指数/阶码，R 为基数）；阶码决定数值的范围，尾数决定数值的精度<br>
+定点数：固定小数点的位置（小数点越靠左，整个数值范围越小；小数点越靠右，数值精度越低）</p>
+<h4 id="字符汉字声音图像的编码方式i">字符、汉字、声音、图像的编码方式（I）</h4>
+<p>答：<br>
+字符编码方式：</p>
+<ul>
+<li>ASCII：使用 7 位二进制数表示 128 个字符（英文字母、数字和一些常见符号）</li>
+<li>UTF-8：可变长度编码，几乎可以表示所有字符</li>
+</ul>
+<p>汉字编码方式：</p>
+<ul>
+<li>GB2312：中国国家标准，使用两个字节表示常用汉字字符</li>
+<li>GBK 是 GB2312 的扩展编码，表示公衡多汉字</li>
+<li>Unicode：国际常用汉字编码，使用两字节表示汉字</li>
+</ul>
+<p>声音编码方式：</p>
+<ul>
+<li>PCM：将模拟声音信号转换为数字信号的编码方式，常用于音乐和传输声音数据</li>
+<li>MP3：是一种有压缩的音频编码方式，可以将声音压缩为较小的文件大小，常用于音乐和语音的存储和传输。</li>
+</ul>
+<p>图片编码方式：</p>
+<ul>
+<li>JPEG：是一种有损压缩的图像编码方式，常用于存储和传输照片和图像。</li>
+<li>PNG：是一种无损压缩的图像编码方式，常用于存储和传输图标和界面元素。</li>
+<li>GIF：是一种支持动画的图像编码方式，常用于表情包和简单动画的存储和传输。</li>
+</ul>
+<h4 id="校验方法和校验码奇偶校验码海明校验码循环冗余校验码ii">校验方法和校验码（奇偶校验码、海明校验码、循环冗余校验码）（II）</h4>
+<p>答：</p>
+<ul>
+<li>奇/偶校验码：整个校验码（有效信息位+校验位）中 1 的个数为奇/偶数</li>
+<li>海明检验码：k 位校验码，n 位信息码，满足<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup><mo lspace="0em" rspace="0em">≥</mo><mi>n</mi><mo>+</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^k {\geq} n+k+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9851em;vertical-align:-0.136em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mord"><span class="mrel">≥</span></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>；海明码规定，校验码<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>要放在海明位号为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{i-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8247em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>位置上；海明码具有 1 个比特位的纠错能力，和 2 个比特位的检错能力。</li>
+<li>循环冗余校验码：收发双方约定好一个 生成多项式 G(x) ，发送方基于待发送的数据和生成多项式计算出 R 位校验码 ，将其添加到 K 位信息码 （待传输数据）的后面一起传输。对接收收到的信息与生成多项式系数所构成的比特串相除，看余数是否为 0<br>
+<img src="data:image/png;base64,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" alt="alt text"><br>
+<a href="https://blog.csdn.net/qq_46331050/article/details/122115456">参考文献</a></li>
+</ul>
+<h3 id="算术运算和逻辑运算">算术运算和逻辑运算</h3>
+<h4 id="二进制数运算方法ii">二进制数运算方法（II）</h4>
+<p>答：<br>
+二进制数加法：逢二进一<br>
+二进制数减法：借一有二<br>
+二进制数乘/除法：按十进制来就行<br>
+逻辑“或”运算：有一出一<br>
+逻辑“与”运算：同一出一<br>
+逻辑“异或”运算：相同出 0，不同出 1</p>
+<h4 id="逻辑代数的基本运算和逻辑表达式的化简i">逻辑代数的基本运算和逻辑表达式的化简（I）</h4>
+<p>答：<a href="%5Cimgs%5C%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%BD%AF%E8%80%83%5C%E9%80%BB%E8%BE%91%E4%BB%A3%E6%95%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99.png">逻辑代数的基本运算法则</a></p>
+<h3 id="计算机组成和主要部件的基本工作原理">计算机组成和主要部件的基本工作原理</h3>
+<h4 id="cpu-和存储器的组成基本工作原理">CPU 和存储器的组成、基本工作原理</h4>
+<ul>
+<li>CPU 的基本组成与工作原理（II）<br>
+答：</li>
+<li>存储器的组成及特点（II）</li>
+<li>信息存储的字节顺序（大端存储、小端存储）（II）</li>
+</ul>
+<h4 id="常用-io-设备通信设备的性能以及基本工作原理i">常用 I/O 设备、通信设备的性能以及基本工作原理（I）</h4>
+<h4 id="io-接口的功能类型和特点">I/O 接口的功能、类型和特点</h4>
+<ul>
+<li>I/O 接口的基本组成与主要功能（II）</li>
+<li>I/O 接口的分类（I）</li>
+<li>I/O 接口的控制方式及特点：程序查询方式、中断处理方式、DMA（直接存储器存取）传送方式等（II）</li>
+</ul>
+<h3 id="计算机体系结构">计算机体系结构</h3>
+<h4 id="ciscrisc流水线技术超标量等i">CISC、RISC、流水线技术、超标量等（I）</h4>
+<h4 id="多处理机并行处理分布处理i">多处理机，并行处理，分布处理（I）</h4>
+<h4 id="冯诺伊曼结构与哈佛结构i">冯·诺伊曼结构与哈佛结构（I）</h4>
+<h3 id="可靠性与系统性能评测基础知识">可靠性与系统性能评测基础知识</h3>
+<h4 id="诊断与容错">诊断与容错</h4>
+<ul>
+<li>故障诊断（I）</li>
+<li>容错技术与容错控制（I）</li>
+</ul>
+<h4 id="系统可靠性分析评价">系统可靠性分析评价</h4>
+<ul>
+<li>系统的可靠性定义（I）</li>
+<li>串联系统特点及可靠性度量（I）</li>
+<li>并联系统特点及可靠性度量（I）</li>
+<li>N 模冗余系统等可靠性模型的特点（I）</li>
+</ul>
+<h4 id="计算机系统性能评测方法">计算机系统性能评测方法</h4>
+<ul>
+<li>平均无故障时间的定义及计算（I）</li>
+<li>平均修复时间的定义及计算（I）</li>
+<li>可用性的定义及计算（I）</li>
+</ul>
+<h2 id="嵌入式系统硬件基础知识">嵌入式系统硬件基础知识</h2>
+<h3 id="数字电路基础">数字电路基础</h3>
+<h4 id="信号特性与信号转换i">信号特性与信号转换（I）</h4>
+<h4 id="组合逻辑电路和时序逻辑电路i">组合逻辑电路和时序逻辑电路（I）</h4>
+<h4 id="可编程逻辑器件">可编程逻辑器件</h4>
+<ul>
+<li>CPLD 和 FPGA 的特点（I）</li>
+<li>FPGA 的构成（I）</li>
+</ul>
+<h3 id="嵌入式微处理器基础">嵌入式微处理器基础</h3>
+<h4 id="嵌入式微处理器的结构和类型">嵌入式微处理器的结构和类型</h4>
+<ul>
+<li>常用 8 位处理器的体系结构特点（II）</li>
+<li>常用 16 位处理器的体系结构特点（II）</li>
+<li>常用 32 位处理器的体系结构特点
+<ul>
+<li>X86、ARM、PowerPC 系列（II）</li>
+</ul>
+</li>
+<li>常用 DSP 处理器的体系结构特点
+<ul>
+<li>典型的包括 TI 系列，ADI 系列，Freescale 系列（II）</li>
+</ul>
+</li>
+<li>多核处理器的体系结构特点
+<ul>
+<li>同构异构（II）</li>
+<li>程序执行模型（II）</li>
+<li>核间通信方法（II）</li>
+</ul>
+</li>
+</ul>
+<h4 id="嵌入式微处理器的异常与中断">嵌入式微处理器的异常与中断</h4>
+<ul>
+<li>异常
+<ul>
+<li>陷阱（I）</li>
+<li>故障（I）</li>
+<li>终止（I）</li>
+</ul>
+</li>
+<li>中断
+<ul>
+<li>硬中断、软中断（II）</li>
+<li>可屏蔽中断、不可屏蔽中断（II）</li>
+<li>中断优先级（II）</li>
+<li>中断嵌套（II）</li>
+</ul>
+</li>
+</ul>
+<h3 id="嵌入式系统的存储体系">嵌入式系统的存储体系</h3>
+<h4 id="存储系统的层次结构i">存储系统的层次结构（I）</h4>
+<h4 id="内存管理单元mmu">内存管理单元（MMU）</h4>
+<ul>
+<li>MMU 的功能和作用（I）</li>
+</ul>
+<h4 id="ram-和-rom-的种类与选型">RAM 和 ROM 的种类与选型</h4>
+<ul>
+<li>常见 RAM 类型
+<ul>
+<li>SRAM、DRAM、DDRAM、NVRAM 各自的典型特性和不同点（I）</li>
+</ul>
+</li>
+<li>常见 ROM 种类
+<ul>
+<li>PROM、EPROM、EEPROM 和 ROM 各自的典型特征和不同点（I）</li>
+</ul>
+</li>
+</ul>
+<h4 id="高速缓存cache">高速缓存(Cache)</h4>
+<ul>
+<li>Cache 的分类（II）</li>
+<li>Cache 的组成结构（II）</li>
+<li>Cache 的工作原理（II）</li>
+</ul>
+<h4 id="其他存储设备">其他存储设备</h4>
+<ul>
+<li>磁盘、光盘等存储介质（I）</li>
+<li>闪存类存储介质（I）</li>
+</ul>
+<h3 id="嵌入式系统-io">嵌入式系统 I/O</h3>
+<h4 id="gpiopwm-接口基本原理和结构i">GPIO、PWM 接口基本原理和结构（I）</h4>
+<h4 id="adda-接口基本原理与结构ii">A/D、D/A 接口基本原理与结构（II）</h4>
+<h4 id="键盘显示触摸屏声控屏等接口基本原理与结构ii">键盘、显示、触摸屏、声控屏等接口基本原理与结构（II）</h4>
+<h4 id="嵌入式系统音频视频接口i">嵌入式系统音频、视频接口（I）</h4>
+<h4 id="输入输出控制ii">输入输出控制（II）</h4>
+<h3 id="定时器和计数器">定时器和计数器</h3>
+<h4 id="定时器和计数器的工作原理i">定时器和计数器的工作原理（I）</h4>
+<h4 id="定时器的设计ii">定时器的设计（II）</h4>
+<h4 id="计数器的设计ii">计数器的设计（II）</h4>
+<h3 id="嵌入式系统总线及通信接口">嵌入式系统总线及通信接口</h3>
+<ul>
+<li>总线分类（II）</li>
+<li>总线控制（II）</li>
+<li>PCI、PCI-E、EISA、VME、CPCI、PCMCIA 等的基本原理和特点（II）</li>
+<li>USB、串口、红外、并口、SPI、IIC、1394、CAN 等的基本原理和特点（II）</li>
+<li>以太网、WLAN、蓝牙、Zigbee、WIFI、GPRS、3G、AFDX、FC 等基本原理和特点（II）</li>
+<li>Select IO、Rapid IO 等告诉串行通信接口的基本原理和特点（II）</li>
+</ul>
+<h3 id="嵌入式系统电源分类及电源管理i">嵌入式系统电源分类及电源管理（I）</h3>
+<h3 id="电子电路设计">电子电路设计</h3>
+<h4 id="电子电路设计基础知识">电子电路设计基础知识</h4>
+<ul>
+<li>电子电路设计原理（I）</li>
+<li>电子电路设计方法及步骤（I）</li>
+<li>电子电路可靠性设计（I）</li>
+</ul>
+<h4 id="pcb-设计基础知识">PCB 设计基础知识</h4>
+<ul>
+<li>PCB 设计原理（I）</li>
+<li>PCB 设计方法及步骤（I）</li>
+<li>多层 PCB 设计的注意事项及布线原理（I）</li>
+<li>PCB 的可靠性设计（电磁兼容）（I）</li>
+</ul>
+<h4 id="电子电路测试基础知识">电子电路测试基础知识</h4>
+<ul>
+<li>电子电路测试方法（I）</li>
+<li>硬件可靠性测试（I）</li>
+</ul>
+<h2 id="嵌入式系统软件基础知识">嵌入式系统软件基础知识</h2>
+<h3 id="嵌入式软件基础知识">嵌入式软件基础知识</h3>
+<h4 id="嵌入式软件分类">嵌入式软件分类</h4>
+<ul>
+<li>系统软件（I）</li>
+<li>支撑软件
+<ul>
+<li>中间件（I）</li>
+<li>可配置组件（I）</li>
+</ul>
+</li>
+<li>应用软件（I）</li>
+</ul>
+<h4 id="嵌入式系统初始化">嵌入式系统初始化</h4>
+<ul>
+<li>系统引导（Bootloader）（II）</li>
+<li>班级支持包（BSP）（II）</li>
+</ul>
+<h4 id="无操作系统支持的嵌入式软件体系结构i">无操作系统支持的嵌入式软件体系结构（I）</h4>
+<h4 id="有操作系统支持的嵌入式软件体系结构ii">有操作系统支持的嵌入式软件体系结构（II）</h4>
+<h4 id="嵌入式支撑软件嵌入式文件系统嵌入式数据库分布式对象系统gui-等ii">嵌入式支撑软件（嵌入式文件系统、嵌入式数据库、分布式对象系统、GUI 等）（II）</h4>
+<h3 id="嵌入式系统基础知识">嵌入式系统基础知识</h3>
+<h4 id="嵌入式操作系统基本概念">嵌入式操作系统基本概念</h4>
+<ul>
+<li>分类：模块化结构、分层结构、微内核结构、多重独立安全等级（MILS）结构等（II）</li>
+<li>嵌入式实时操作系统特点：实时性、可移植性、可剪裁可配置性、可靠性、应用编程接口（API）等（I）</li>
+<li>高可靠嵌入式实时操作系统：相关标准、分区概念、隔离保护、健康监控（I）</li>
+</ul>
+<h4 id="处理器管理">处理器管理</h4>
+<ul>
+<li>多道程序（I）</li>
+<li>分区、进程、线程、任务的概念（II）</li>
+<li>任务管理
+<ul>
+<li>任务划分（II）</li>
+<li>任务控制块（II）</li>
+<li>任务的状态及状态转换（II）</li>
+<li>任务队列（II）</li>
+<li>任务管理机制（II）</li>
+</ul>
+</li>
+<li>任务调度（调度算法的性能指标、可抢占调度、不可抢占调度、先来先服务算法、短作业优先算法、时间片轮转算法、优先级算法，使用率平衡算法、单调速率调度（RMS）算法、最早截止期限优先动态调度（EDF）算法，多处理器调度）（II）</li>
+<li>优先级反转（优先级反转、优先级继承、优先级天花板等）（II）</li>
+<li>任务间通信（共享内存、消息、邮箱、管道、信号等）（II）</li>
+<li>同步与互斥（竞争条件、临界区、互斥、信号量、死锁等）（III）</li>
+<li>高可靠性操作系统的分区调度、分区通信等（II）</li>
+</ul>
+<h4 id="存储管理">存储管理</h4>
+<ul>
+<li>Flat 存储管理方式（I）</li>
+<li>分区存储管理（固定分区、可变分区、内存保护等）（II）</li>
+<li>地址重定位（逻辑地址、物理地址、地址映射等）（II）</li>
+<li>页式存储管理（II）</li>
+<li>虚拟存储技术（程序局部性原理、虚拟页式存储管理、页面置换算法等）（II）</li>
+</ul>
+<h4 id="设备管理">设备管理</h4>
+<ul>
+<li>物理设备、逻辑设备、虚拟设备等（II）</li>
+<li>设备分类（字符设备、块设备、网络设备）（II）</li>
+<li>设备管理方式（设备文件、设备控制、设备无关性、中断处理、缓冲技术、假脱机技术等）（II）</li>
+<li>设备驱动程序（II）</li>
+</ul>
+<h4 id="文件系统">文件系统</h4>
+<ul>
+<li>文件和目录（II）</li>
+<li>文件的结构和组织（II）</li>
+<li>存取方法、存取控制（II）</li>
+<li>常见嵌入式文件系统（FAT、JFFS、YAFFS 等）（I）</li>
+<li>网络文件系统（I）</li>
+</ul>
+<h4 id="操作系统移植">操作系统移植</h4>
+<ul>
+<li>硬件配置、板级支持包移植、驱动移植、系统配置、交叉编译、部署与测试等（I）</li>
+</ul>
+<h3 id="嵌入式系统程序设计">嵌入式系统程序设计</h3>
+<h4 id="嵌入式软件开发基础知识">嵌入式软件开发基础知识</h4>
+<ul>
+<li>嵌入式软件开发模式，开发环境、开发工具等的选择（I）</li>
+</ul>
+<h4 id="嵌入式程序设计语言">嵌入式程序设计语言</h4>
+<ul>
+<li>编译器和解释器的基础知识（II）</li>
+<li>汇编语言（指令系统、寻址方式、伪指令、宏指令等）（I）</li>
+<li>混合编程（I）</li>
+<li>过程式语言（过程/函数、参数传递、变量、递归、动态内存分配、数据类型等）（II）</li>
+<li>面向对象语言（对象/类、数据抽象、继承、多态、重载等）（II）</li>
+<li>嵌入式 C/C++程序设计要求（II）</li>
+</ul>
+<h4 id="嵌入式软件开发环境">嵌入式软件开发环境</h4>
+<ul>
+<li>宿主机、目标机（I）</li>
+<li>编辑器、交叉工具链（编译器、链接器、调试器）、模拟器（II）</li>
+<li>集成开发及仿真环境（II）</li>
+<li>开发辅助工具（I）</li>
+</ul>
+<h4 id="嵌入式软件开发过程">嵌入式软件开发过程</h4>
+<ul>
+<li>嵌入式软件设计（II）</li>
+<li>编码（编程规范、代码审查）（I）</li>
+<li>软件集成（I）</li>
+<li>测试（测试环境、测试用例、测试方法、测试工具）（II）</li>
+<li>下载和运行（II）</li>
+<li>第三方测试与验证（I）</li>
+</ul>
+<h4 id="嵌入式应用软件移植">嵌入式应用软件移植</h4>
+<ul>
+<li>无操作系统的软件移植（II）</li>
+<li>有操作系统的软件移植（II）</li>
+</ul>
+<h2 id="嵌入式系统的项目开发与维护知识">嵌入式系统的项目开发与维护知识</h2>
+<h3 id="系统开发过程及其项目管理">系统开发过程及其项目管理</h3>
+<h4 id="系统开发生命周期各阶段的目标和任务">系统开发生命周期各阶段的目标和任务</h4>
+<ul>
+<li>项目描述、可行性分析、需求分析、总体设计、概要设计、详细设计、编码和单元测试、集成测试、运行维护（I）</li>
+</ul>
+<h4 id="系统开发项目管理基础知识及其常用管理工具">系统开发项目管理基础知识及其常用管理工具</h4>
+<ul>
+<li>开发过程管理知识及工具（I）</li>
+<li>成本管理知识及工具（I）</li>
+<li>风险管理知识及工具（I）</li>
+<li>质量管理知识及工具（I）</li>
+</ul>
+<h4 id="系统开发方法i">系统开发方法（I）</h4>
+<h4 id="系统开发工具与环境i">系统开发工具与环境（I）</h4>
+<h3 id="系统分析知识">系统分析知识</h3>
+<h4 id="需求分析">需求分析</h4>
+<ul>
+<li>功能性需求（I）</li>
+<li>非功能性需求（I）</li>
+</ul>
+<h4 id="系统分析的目的和任务i">系统分析的目的和任务（I）</h4>
+<h4 id="系统分析方法i">系统分析方法（I）</h4>
+<h3 id="系统设计知识">系统设计知识</h3>
+<h4 id="系统设计方法i">系统设计方法（I）</h4>
+<h4 id="系统架构及概要设计ii">系统架构及概要设计（II）</h4>
+<h4 id="系统详细设计程序结构设计模块接口设计数据结构设计用户界面设计等">系统详细设计（程序结构设计、模块接口设计、数据结构设计、用户界面设计等）</h4>
+<ul>
+<li>程序结构设计（II）</li>
+<li>模块接口设计（II）</li>
+<li>数据结构设计（II）</li>
+<li>处理过程设计（II）</li>
+<li>用户界面设计（II）</li>
+</ul>
+<h4 id="软硬件协同设计方法">软硬件协同设计方法</h4>
+<ul>
+<li>软硬件的功能划分（I）</li>
+<li>单任务流图的软硬件协同设计方法（I）</li>
+<li>多分支系统任务流图的软硬件协同设计方法（I）</li>
+<li>并行系统任务流图的软硬件协同设计方法（I）</li>
+</ul>
+<h3 id="系统实施知识">系统实施知识</h3>
+<h4 id="软硬件平台搭建ii">软硬件平台搭建（II）</h4>
+<h4 id="系统调试与测试ii">系统调试与测试（II）</h4>
+<h3 id="系统运行和维护知识">系统运行和维护知识</h3>
+<h4 id="系统运行管理i">系统运行管理（I）</h4>
+<h4 id="系统维护">系统维护</h4>
+<ul>
+<li>系统维护的目的与任务（I）</li>
+<li>系统维护的内容：硬件设备维护、程序维护、数据维护等（I）</li>
+<li>系统维护的类型：完善性维护、适应性维护、改正性维护、预防性维护等（II）</li>
+</ul>
+<h4 id="系统评价i">系统评价（I）</h4>
+<h2 id="嵌入式系统的安全性知识">嵌入式系统的安全性知识</h2>
+<h3 id="安全性基本概念">安全性基本概念</h3>
+<ul>
+<li>网络安全、信息安全等基础知识（I）</li>
+<li>防治计算机病毒、防范计算机犯罪、防闯入、防灾等（I）</li>
+<li>保障完整性与可用性的措施（I）</li>
+<li>风险管理与控制（风险分析、风险类型、风险控制手段）（I）</li>
+</ul>
+<h3 id="嵌入式系统的安全性设计">嵌入式系统的安全性设计</h3>
+<ul>
+<li>硬件安全性设计（I）</li>
+<li>软件安全性设计（I）</li>
+</ul>
+<h3 id="嵌入式系统的信息安全加密与解密访问控制等">嵌入式系统的信息安全（加密与解密、访问控制等）</h3>
+<ul>
+<li>加密与解密机制基础知识（II）</li>
+<li>访问控制（I）</li>
+</ul>
+<h2 id="标准化知识">标准化知识</h2>
+<h3 id="标准化的概念和标准化机构i">标准化的概念和标准化机构（I）</h3>
+<h3 id="国际标准国家标准行业标准企业标准基本知识i">国际标准、国家标准、行业标准、企业标准基本知识（I）</h3>
+<h3 id="代码标准文件格式标准安全标准软件开发规范和文档标准知识i">代码标准、文件格式标准、安全标准、软件开发规范和文档标准知识（I）</h3>
+<h3 id="嵌入式系统相关标准i">嵌入式系统相关标准（I）</h3>
+<h2 id="信息化和知识产权基础知识">信息化和知识产权基础知识</h2>
+<h3 id="信息化基础知识">信息化基础知识</h3>
+<ul>
+<li>全球信息化趋势、国家信息化战略、企业信息化战略和策略（I）</li>
+<li>信息化意识，有关的法律、法规（I）</li>
+<li>远程教育、电子商务、电子政务等基础知识（I）</li>
+<li>企业信息资源管理基础知识（I）</li>
+</ul>
+<h3 id="知识产权基础知识">知识产权基础知识</h3>
+<ul>
+<li>专利法、商标法、商业秘密权对软件的保护（I）</li>
+<li>软件有关的法律、法规方面的基础知识（I）</li>
+<li>著作权法、软件保护条例及软件著作登记的基础知识（I）</li>
+<li>软件著作权主体与客体、权利内容、权利归属、侵权责任，分析侵权行为（II）</li>
+</ul>
+<h2 id="嵌入式技术发展趋势">嵌入式技术发展趋势</h2>
+<h3 id="嵌入式系统硬件发展趋势i">嵌入式系统硬件发展趋势（I）</h3>
+<h3 id="嵌入式系统软件发展趋势i">嵌入式系统软件发展趋势（I）</h3>
+<h2 id="计算机专业英语">计算机专业英语</h2>
+<ul>
+<li>正确阅读理解嵌入式系统相关领域的英文资料（I）</li>
+</ul>
+<h1 id="考试科目-2嵌入式系统设计">考试科目 2：嵌入式系统设计</h1>
+<h2 id="嵌入式系统开发过程">嵌入式系统开发过程</h2>
+<h3 id="系统开发过程管理">系统开发过程管理</h3>
+<h4 id="生命周期成本及工作量估计iii">生命周期、成本及工作量估计（III）</h4>
+<h4 id="风险管理ii">风险管理（II）</h4>
+<h4 id="开发模型">开发模型</h4>
+<ul>
+<li>瀑布模型、快速原型、增量模型、螺旋模型等（II）</li>
+</ul>
+<h4 id="质量管理ii">质量管理（II）</h4>
+<h4 id="配置管理ii">配置管理（II）</h4>
+<h4 id="软件成熟度模型ii">软件成熟度模型（II）</h4>
+<h3 id="需求分析-1">需求分析</h3>
+<h4 id="用户需求ii">用户需求（II）</h4>
+<h4 id="系统定义ii">系统定义（II）</h4>
+<h4 id="需求规格说明书ii">需求规格说明书（II）</h4>
+<h4 id="需求评审ii">需求评审（II）</h4>
+<h3 id="系统设计">系统设计</h3>
+<h4 id="系统方案设计iii">系统方案设计（III）</h4>
+<h4 id="系统功能划分iii">系统功能划分（III）</h4>
+<h4 id="软硬件协同设计iii">软硬件协同设计（III）</h4>
+<h4 id="硬件设计">硬件设计</h4>
+<ul>
+<li>原理图设计（II）</li>
+<li>原理图分析与评审（II）</li>
+<li>PCB 设计与评审（I）</li>
+</ul>
+<h4 id="软件设计">软件设计</h4>
+<ul>
+<li>概要设计（III）</li>
+<li>详细设计（III）</li>
+<li>设计评审（II）</li>
+</ul>
+<h3 id="系统开发环境">系统开发环境</h3>
+<h4 id="开发平台">开发平台</h4>
+<ul>
+<li>操作系统（I）</li>
+<li>VxWorks、Windows CE、嵌入式 Linux、μCOSⅡ、……</li>
+<li>分布式开发环境（I）</li>
+</ul>
+<h4 id="开发工具">开发工具</h4>
+<ul>
+<li>文本编辑器（II）</li>
+<li>集成开发环境（II）</li>
+<li>配置管理工具（II）</li>
+<li>逆向工程工具（I）</li>
+</ul>
+<h3 id="系统测试">系统测试</h3>
+<h4 id="测试环境ii">测试环境（II）</h4>
+<h4 id="测试计划内容方法标准过程检验iii">测试计划（内容、方法、标准、过程、检验）（III）</h4>
+<h4 id="硬件测试ii">硬件测试（II）</h4>
+<h4 id="软件测试单元测试集成测试系统测试等iii">软件测试（单元测试、集成测试、系统测试等）（III）</h4>
+<h4 id="软硬件联合测试ii">软硬件联合测试（II）</h4>
+<h3 id="系统评价i-1">系统评价（I）</h3>
+<h3 id="系统维护-1">系统维护</h3>
+<h4 id="系统可维护性概念i">系统可维护性概念（I）</h4>
+<h4 id="系统维护的内容及类型i">系统维护的内容及类型（I）</h4>
+<h4 id="系统维护管理i">系统维护管理（I）</h4>
+<h3 id="开发文档i">开发文档（I）</h3>
+<h2 id="嵌入式系统硬件设计">嵌入式系统硬件设计</h2>
+<h3 id="嵌入式系统硬件基本结构">嵌入式系统硬件基本结构</h3>
+<h4 id="嵌入式微处理器结构iii">嵌入式微处理器结构（III）</h4>
+<h4 id="数字信号处理器dsp结构iii">数字信号处理器(DSP)结构（III）</h4>
+<h4 id="异常及中断处理iii">异常及中断处理（III）</h4>
+<h4 id="dma-技术ii">DMA 技术（II）</h4>
+<h4 id="多处理器系统">多处理器系统</h4>
+<ul>
+<li>多处理器系统特点（I）</li>
+<li>多处理器系统构建技术（多处理器、单处理器多核）（II）</li>
+</ul>
+<h4 id="总线i">总线（I）</h4>
+<h4 id="数字电路">数字电路</h4>
+<ul>
+<li>组合逻辑电路与时序逻辑电路设计（I）</li>
+<li>可编程逻辑器件（FPGA/CPLD）的系统设计（III）</li>
+</ul>
+<h3 id="硬件描述语言vhdlverilog-hdl-等ii">硬件描述语言（VHDL，Verilog HDL 等）（II）</h3>
+<h3 id="大规模集成电路系统设计">大规模集成电路系统设计</h3>
+<ul>
+<li>ASIC 设计（I）</li>
+<li>FPGA 设计（I）</li>
+<li>SOC 设计（I）</li>
+</ul>
+<h3 id="输入输出接口">输入/输出接口</h3>
+<h4 id="接口的特性机械电气功能规程i">接口的特性（机械、电气、功能、规程）（I）</h4>
+<h4 id="接口设计">接口设计</h4>
+<ul>
+<li>接口信号电平转换（I）</li>
+<li>接口驱动电路设计（I）</li>
+</ul>
+<h4 id="接口应用">接口应用</h4>
+<ul>
+<li>GPIO 接口（I）</li>
+<li>USB 接口（I）</li>
+<li>串行接口（I）</li>
+<li>并行接口（II）</li>
+<li>A/D、D/A 转换接口（III）</li>
+<li>高速串行接口（Rapid IO，Select IO）（III）</li>
+<li>音视频接口（II）</li>
+<li>显示接口（III）</li>
+<li>射频接口（II）</li>
+<li>通信标准和协议（II）</li>
+</ul>
+<h3 id="电源设计i">电源设计（I）</h3>
+<h3 id="低功耗设计i">低功耗设计（I）</h3>
+<h3 id="可靠性与安全性设计">可靠性与安全性设计</h3>
+<h4 id="冗余设计ii">冗余设计（II）</h4>
+<h4 id="可维护性设计i">可维护性设计（I）</h4>
+<h4 id="系统容错与恢复设计ii">系统容错与恢复设计（II）</h4>
+<h3 id="系统仿真">系统仿真</h3>
+<ul>
+<li>仿真方法（I）</li>
+<li>仿真工具（I）</li>
+</ul>
+<h2 id="嵌入式系统软件设计">嵌入式系统软件设计</h2>
+<h3 id="嵌入式程序设计">嵌入式程序设计</h3>
+<h4 id="汇编语言程序设计ii">汇编语言程序设计（II）</h4>
+<h4 id="嵌入式-c-语言程序设计">嵌入式 C 语言程序设计</h4>
+<ul>
+<li>数据结构设计（III）</li>
+<li>运算符、表达式、语句、函数定义与函数调用、预处理指令等 （III）</li>
+<li>C 程序设计及优化（III）</li>
+</ul>
+<h4 id="面向对象程序设计">面向对象程序设计</h4>
+<ul>
+<li>使用 C++、C#或 Java 语言进行嵌入式程序设计（III）</li>
+</ul>
+<h3 id="系统软件设计">系统软件设计</h3>
+<h4 id="系统初始化设计i">系统初始化设计（I）</h4>
+<h4 id="硬件抽象层hal板级支持包bsp设计iii">硬件抽象层（HAL）、板级支持包（BSP）设计（III）</h4>
+<h4 id="设备驱动程序设计iii">设备驱动程序设计（III）</h4>
+<h4 id="嵌入式系统软件的移植i">嵌入式系统软件的移植（I）</h4>
+<h4 id="嵌入式系统软件的移植">嵌入式系统软件的移植</h4>
+<h3 id="嵌入式操作系统">嵌入式操作系统</h3>
+<h4 id="处理器管理-1">处理器管理</h4>
+<ul>
+<li>任务（进程、线程等）定义与调度（III）</li>
+<li>任务的同步与通信（III）</li>
+</ul>
+<h4 id="存储管理-1">存储管理</h4>
+<ul>
+<li>内存管理单元 MMU（II）</li>
+<li>高速缓存（II）</li>
+</ul>
+<h4 id="异常处理">异常处理</h4>
+<ul>
+<li>异常处理方法（II）</li>
+<li>中断优先级处理方法（III）</li>
+<li>系统调用（II）</li>
+</ul>
+<h4 id="常见嵌入式操作系统">常见嵌入式操作系统</h4>
+<ul>
+<li>Linux、WinCE、VxWorks、Android、uCOSⅡ 等（I）</li>
+</ul>
+<h3 id="嵌入式支撑系统">嵌入式支撑系统</h3>
+<h4 id="嵌入式系统中间件ii">嵌入式系统中间件（II）</h4>
+<h4 id="嵌入式文件系统">嵌入式文件系统</h4>
+<ul>
+<li>Ext2，Ext3 文件系统 （II）</li>
+<li>Yaffs，jffs，Jffs2 文件系统（II）</li>
+<li>Romfs，ramfs，cramfs 文件系统（II）</li>
+</ul>
+<h4 id="嵌入式系统数据库sqlite-数据库等ii">嵌入式系统数据库（SQLite 数据库等）（II）</h4>
+<h4 id="嵌入式系统图形用户接口guiii">嵌入式系统图形用户接口（GUI）（II）</h4>
+<h4 id="嵌入式网络程序设计">嵌入式网络程序设计</h4>
+<ul>
+<li>Socket 程序设计（II）</li>
+<li>WEB 程序设计（II）</li>
+</ul>
+<h2 id="嵌入式实时系统与分布式系统设计">嵌入式实时系统与分布式系统设计</h2>
+<h3 id="实时系统的分析与设计i">实时系统的分析与设计（I）</h3>
+<h3 id="分布式系统设计">分布式系统设计</h3>
+<h4 id="分布式系统设计原理i">分布式系统设计原理（I）</h4>
+<h4 id="分布式系统设计方法i">分布式系统设计方法（I）</h4>
+<h4 id="分布式系统的通信技术i">分布式系统的通信技术（I）</h4>
+<h4 id="分布式系统应用ii">分布式系统应用（II）</h4>
+<h2 id="嵌入式系统应用">嵌入式系统应用</h2>
+<ul>
+<li>嵌入式系统在通信、交通、工业控制、航空航天等领域的应用（III）</li>
+</ul>
